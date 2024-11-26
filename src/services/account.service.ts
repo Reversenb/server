@@ -1,5 +1,6 @@
 import { User } from "../models/user.model"
-import { login, register, user } from "../types/account.type"
+import { login, register } from "../types/account.type"
+import { user } from "../types/user.type"
 
 export const AccountService = {
     login: async function (loginData: login): Promise<user> {
@@ -8,7 +9,7 @@ export const AccountService = {
             .exec()
         if (!user)
             throw new Error("User Does not exist")
-        const verifyPassword = await user.verifypassword(loginData.password)
+        const verifyPassword = await user.verifyPassword(loginData.password)
         if (!verifyPassword)
             throw new Error("Password is incorrect")
         return user.toUser()
