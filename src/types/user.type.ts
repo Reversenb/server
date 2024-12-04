@@ -29,6 +29,7 @@ const _userPagination = t.Object({
     min_age: t.Optional(t.Number()),
     max_age: t.Optional(t.Number()),
     looking_for: t.Optional(t.Union([t.Literal('male'), t.Literal('female'), t.Literal('all')])),
+    gender: t.Optional(t.Union([t.Literal('male'), t.Literal('female'), t.Literal('all')])),
 })
 
 export const _updateProfile = t.Omit(_profile, ['id', 'username', 'updated_at', 'create_at', 'last_active', 'age'])
