@@ -64,7 +64,16 @@ export const PhotoService = {
     },
 
     setAvatar: async function (photo_id: string, user_id: string): Promise<boolean> {
-        throw new Error('Not implemented')
+        await Photo.updateMany(
+            { user: new mongoose.Types.ObjectId(user_id) },
+            { $set: { is_avatar: false } }
+        )
+        const result = await Photo.findByIdAndUpdate(photo_id,
+            { $set: { is_avatar: true } },
+            //{ new: true }
+        )
+
+        return !!result
     },
 
 
