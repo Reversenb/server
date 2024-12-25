@@ -37,13 +37,13 @@ export const LikeService = {
             _query.exec(),
             User.aggregate([
                 { $match: { _id: new mongoose.Types.ObjectId(user_id) } },
-                { $project: { count: { $size: { $isNull: ["$followers", []] } } } }
+                { $project: { count: { $size: { $ifNull: ["$followers", []] } } } }
             ])
         ])
         pagination.length = total[0].count
         let follower: user[] = []
         if (docs) {
-            follower = docs.followers as user[]
+            follower = docs.toUser()['followers'] as user[]
         }
         return {
             pagination: pagination,
@@ -65,13 +65,13 @@ export const LikeService = {
             _query.exec(),
             User.aggregate([
                 { $match: { _id: new mongoose.Types.ObjectId(user_id) } },
-                { $project: { count: { $size: { $isNull: ["$following", []] } } } }
+                { $project: { count: { $size: { $ifNull: ["$following", []] } } } }
             ])
         ])
         pagination.length = total[0].count
         let following: user[] = []
         if (docs) {
-            following = docs.followers as user[]
+            following = docs.toUser()['following'] as user[]
         }
         return {
             pagination: pagination,
