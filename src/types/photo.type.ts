@@ -1,5 +1,5 @@
 import Elysia, { Static, t } from "elysia"
-import { file } from 'bun'
+
 
 export const _photo = t.Object({
     id: t.Optional(t.String()),
